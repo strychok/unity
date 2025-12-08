@@ -8,6 +8,7 @@ public class StateManager : MonoBehaviour
     public RoundState RoundState = new RoundState();
     public TimeoutState TimeoutState = new TimeoutState();
 
+    [SerializeField] public PlayerMovement playerMovement;
 
     void Start()
     {
