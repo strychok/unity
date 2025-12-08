@@ -2,19 +2,20 @@ using UnityEngine;
 
 public class StateManager : MonoBehaviour
 {
-    [SerializeField] Timer timer;
+    BaseGameState currentState;
+    [SerializeField] public Timer timer;
+    
+    public RoundState RoundState = new RoundState();
+    public TimeoutState TimeoutState = new TimeoutState();
+
 
     void Start()
     {
-
-        timer.OnTimerFinished += HandleTimerEnd;
-
-        timer.StartTimer(10f);
+        currentState = RoundState;
+        currentState.EnterState(this);
     }
-
-    // Update is called once per frame
-    void HandleTimerEnd() 
-    {
-        Debug.Log("end");
+    public void SwitchState(BaseGameState state) { 
+        currentState = state;
+        currentState.EnterState(this);
     }
 }

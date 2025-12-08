@@ -1,5 +1,3 @@
-using System.Collections.Specialized;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
