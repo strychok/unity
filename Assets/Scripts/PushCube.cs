@@ -16,8 +16,8 @@ public class PushableBox : MonoBehaviour, IInteractable
     public void Interact()
     {
         
-        Vector3 pushDir = transform.forward;
-        rb.AddForce(pushDir * pushForce);
+        //Vector3 pushDir = transform.forward;
+        //rb.AddForce(pushDir * pushForce);
 
         Debug.Log("Cube interacted!");
     }

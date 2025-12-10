@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     CharacterController characterController;
 
+    public bool canInput = true;
     public float moveSpeed = 6f;
     Vector2 moveInput;
     Vector3 movement;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!canInput) { return; }
         Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y);
         if (move.magnitude > 0.1f)
         {
@@ -48,10 +50,10 @@ public class PlayerMovement : MonoBehaviour
     }
     public void ResetPos() {
         characterController.enabled = false;
-        transform.position = new Vector3(1, 1, 1);
+        transform.position = new Vector3(0, 1.6f, 0);
         transform.forward = new Vector3(0, 0, 0);
         characterController.enabled = true;
-        Debug.Log(startPosition);
+        //Debug.Log(startPosition);
     }
     void OnMove(InputValue value)
     {

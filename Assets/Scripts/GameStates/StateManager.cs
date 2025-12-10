@@ -4,6 +4,8 @@ public class StateManager : MonoBehaviour
 {
     BaseGameState currentState;
     [SerializeField] public Timer timer;
+    [SerializeField] public FadeManager fadeManager;
+    [SerializeField] public CameraController cameraController;
     
     public RoundState RoundState = new RoundState();
     public TimeoutState TimeoutState = new TimeoutState();

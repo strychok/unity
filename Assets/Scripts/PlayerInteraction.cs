@@ -3,31 +3,30 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private LayerMask interactLayer;
-    public float interactDistance = 2f;
+    public float sphereRadius = 0.3f;
+    public float heightOffset = 0.2f;
 
     void OnInteract()
     {
-        Debug.Log("Shift");
+        Vector3 origin = transform.position + Vector3.forward * heightOffset;
 
-        RaycastHit hit;
-        Vector3 origin = transform.position + Vector3.up * 1f;
-        Vector3 direction = transform.forward;
-        float radius = 0.5f;
-        float maxDistance = 2f;
-
-
-        if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance, interactLayer))
+        Collider[] hits = Physics.OverlapSphere(origin, sphereRadius, interactLayer);
+        foreach (var col in hits)
         {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            IInteractable interactable = col.GetComponent<IInteractable>();
             if (interactable != null)
             {
                 interactable.Interact();
-                print("hit");
+                //Debug.Log("Interacted with " + col.name);
             }
         }
     }
 
-    void Update()
+    private void OnDrawGizmosSelected()
     {
+        Vector3 origin = transform.position + Vector3.forward * heightOffset;
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(origin, sphereRadius);
     }
 }
