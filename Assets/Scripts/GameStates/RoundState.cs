@@ -7,7 +7,7 @@ public class RoundState : BaseGameState
     {   
         _state = state;
         _state.timer.OnTimerFinished += HandleTimer;
-        _state.timer.StartTimer(15f);
+        _state.timer.StartTimer(90f);
         Debug.Log("RoundState");
     }
     public override void UpdateState(StateManager state)
