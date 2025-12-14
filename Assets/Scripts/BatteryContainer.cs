@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BatteryContainer : MonoBehaviour, IInteractable
 {
-    [SerializeField] bool powered = false;
+    [SerializeField] public bool powered = false;
     [SerializeField] bool hasBattery;
     [SerializeField] PlayerInteraction playerInfo;
     [SerializeField] GameObject battery;
@@ -14,7 +14,6 @@ public class BatteryContainer : MonoBehaviour, IInteractable
             Battery batteryScript = battery.GetComponent<Battery>();
             if (!powered & batteryScript.powered)
             {
-                battery.layer = 0;
                 TakeBattery();
                 door.RotateD();
                 
@@ -43,7 +42,10 @@ public class BatteryContainer : MonoBehaviour, IInteractable
         //Debug.Log(battery.transform.parent);
         battery.transform.parent = transform;
         battery.transform.localPosition = new Vector3(0f, 0f, -0.5f);
+        playerInfo.ResetPickUp();
         playerInfo.currentStuff = null;
         hasBattery = true;
+        Debug.Log(battery.transform.parent);
+
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 public class HexCotroller : MonoBehaviour
 {
+    [SerializeField] public BatteryContainer batteryContainer;
     public bool canRotate = true;
     [SerializeField] private List<RotateHex> hexes;
     public void WinCheck()
     {
-        Debug.Log("CLEAR");
         foreach (var hex in hexes) {
             //Debug.Log(hex.CheckRotation());
             if (hex.CheckRotation() == false)
@@ -18,7 +18,8 @@ public class HexCotroller : MonoBehaviour
             
             
         }
-        Debug.Log("ALL");
+        batteryContainer.powered = true;
+        batteryContainer.Interact();
     }
 
 }

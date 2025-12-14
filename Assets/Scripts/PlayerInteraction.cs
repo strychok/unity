@@ -1,4 +1,5 @@
 using NUnit.Framework.Constraints;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -20,13 +21,13 @@ public class PlayerInteraction : MonoBehaviour
             IInteractable interactable = col.GetComponent<IInteractable>();
             if (interactable != null)
             {
-                if (col.tag == "CanHandle" & currentStuff == null) {
+                if (col.tag == "CanHandle" & currentStuff == null & canPickUp) {
                     currentStuff = col.transform.gameObject;
                     currentStuff.GetComponent<Rigidbody>().isKinematic = true;
                     currentStuff.transform.parent = transform;
                     currentStuff.transform.localPosition = new Vector3(0f, 0f, 1f);
-                    
-                    //Debug.Log(col.name);
+                    ResetPickUp();
+                
                 }
                 Debug.Log(col.name);
                 interactable.Interact();
@@ -47,5 +48,14 @@ public class PlayerInteraction : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(origin, sphereRadius);
+    }
+    public void ResetPickUp()
+    {
+        StartCoroutine(Cooldown());
+    }
+    private IEnumerator Cooldown() {
+        canPickUp = false;
+        yield return new WaitForSeconds(2f);
+        canPickUp = true;
     }
 }
