@@ -12,7 +12,7 @@ public class AnimationAndMovement : MonoBehaviour
     bool isMovementPressed;
     [SerializeField] float speed = 50f;
 
-    [SerializeField] float rotationFactorPerFrame = 0.5f;
+    [SerializeField] float rotationFactorPerFrame = 5f;
 
 
     private void Awake()
@@ -50,6 +50,20 @@ public class AnimationAndMovement : MonoBehaviour
         isMovementPressed = currentMovement.x != 0 || currentMovement.z != 0;
     }
 
+    void handleGravity() 
+   {
+        if (characterController.isGrounded)
+        {
+            float groundedGravity = -.05f;
+            currentMovement.y = groundedGravity;
+            //currentMovement. = groundedGravity;
+        }
+        else
+        {
+            float gravity = -9.8f;
+            currentMovement.y = gravity;
+        }
+    }
     void Start()
     {
         
@@ -68,6 +82,7 @@ public class AnimationAndMovement : MonoBehaviour
     }
     void Update()
     {
+        handleGravity();
         handleRotation();
         handleAnimation();
         characterController.Move(currentMovement * Time.deltaTime * speed);
