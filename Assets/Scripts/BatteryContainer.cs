@@ -4,7 +4,7 @@ public class BatteryContainer : MonoBehaviour, IInteractable
 {
     [SerializeField] public bool powered = false;
     [SerializeField] bool hasBattery;
-    [SerializeField] PlayerInteraction playerInfo;
+    [SerializeField] PLayerStateMAchine playerInfo;
     [SerializeField] GameObject battery;
     [SerializeField] TempDoor door;
     public void Interact()
@@ -42,7 +42,8 @@ public class BatteryContainer : MonoBehaviour, IInteractable
         //Debug.Log(battery.transform.parent);
         battery.transform.parent = transform;
         battery.transform.localPosition = new Vector3(0f, 0f, -0.5f);
-        playerInfo.ResetPickUp();
+        playerInfo.PickupCooldownStart();
+        playerInfo.animator.SetBool("isGrab", false);
         playerInfo.currentStuff = null;
         hasBattery = true;
         Debug.Log(battery.transform.parent);

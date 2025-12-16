@@ -51,7 +51,7 @@ public class AnimationAndMovement : MonoBehaviour
     }
 
     void handleGravity() 
-   {
+    {
         if (characterController.isGrounded)
         {
             float groundedGravity = -.05f;

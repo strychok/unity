@@ -14,13 +14,13 @@ public abstract class PlayerBaseState
     public abstract void CheckSwitchStates();
     public abstract void InititalizeSubState();
 
-    void UpdateStates() { }
-
-    void SwitchState(PlayerBaseState newState) {
+    protected void UpdateStates() { }
+    
+    protected void SwitchState(PlayerBaseState newState) {
         ExitState();
         newState.EnterState();
         _ctx.CurrentState = newState;
     }
 
-    void SetSubState() { }
+    protected void SetSubState() { }
 }
