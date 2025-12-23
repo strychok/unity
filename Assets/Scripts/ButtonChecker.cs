@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 public class ButtonChecker : MonoBehaviour
 {
     [SerializeField] private List<FloorButton> buttons;
+    [SerializeField] private Door door;
 
     public void WinCheck() {
         foreach (var button in buttons)
@@ -12,7 +13,9 @@ public class ButtonChecker : MonoBehaviour
             if (button.needed & !button.state) {
                 return;
             }
+            if (!button.needed & button.state) { return; }
         }
-        Debug.Log("Completed");
+        print("VSE");
+        door.Open();
     }
 }

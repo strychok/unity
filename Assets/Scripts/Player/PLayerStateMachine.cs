@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PLayerStateMAchine : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class PLayerStateMAchine : MonoBehaviour
     public bool IsMovementPressed { get { return isMovementPressed; } }
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; }}
     public bool canMove = true;
+    public bool die = false;
     public bool interactionPressed = false;
     public bool dropPressed= false;
 
@@ -58,7 +60,7 @@ public class PLayerStateMAchine : MonoBehaviour
         Debug.Log("input");
         interactionPressed = true;
 
-        Vector3 boxCenter = transform.position + transform.forward * heightOffset + transform.up * 1;
+        Vector3 boxCenter = transform.position + transform.forward * heightOffset + transform.up * upOffset;
 
         Collider[] hits = Physics.OverlapBox(
             boxCenter,
@@ -77,7 +79,8 @@ public class PLayerStateMAchine : MonoBehaviour
                     currentStuff = col.transform.gameObject;
                     currentStuff.GetComponent<Rigidbody>().isKinematic = true;
                     currentStuff.transform.parent = transform;
-                    currentStuff.transform.localPosition = new Vector3(0f, 1f, 0.3f);
+                    currentStuff.transform.localPosition = new Vector3(-0.26f, 1.59f, 0.492f);
+                    currentStuff.transform.rotation = Quaternion.Euler(-15.2f, 0, 0);
                     StartCoroutine(PickupCooldoown());
                     animator.SetBool("isGrab", true);
                 }
@@ -87,14 +90,17 @@ public class PLayerStateMAchine : MonoBehaviour
         }
     }
     void onDropInput(InputAction.CallbackContext context) {
-       if (currentStuff != null)
-        {   
+        Drop();
+        
+    }
+    public void Drop() {
+        if (currentStuff != null)
+        {
             currentStuff.transform.parent = null;
             currentStuff.GetComponent<Rigidbody>().isKinematic = false;
             currentStuff = null;
             animator.SetBool("isGrab", false);
         }
-        
     }
     void onMovementInput(InputAction.CallbackContext context)
     {
@@ -126,7 +132,7 @@ public class PLayerStateMAchine : MonoBehaviour
         handleGravity();
         if (canMove)
         {
-            characterController.Move(currentMovement * Time.deltaTime);
+            characterController.Move(currentMovement * Time.deltaTime * speed);
         }
     }
 
@@ -150,7 +156,7 @@ public class PLayerStateMAchine : MonoBehaviour
     }
     private void OnDrawGizmosSelected()
     {
-        Vector3 boxCenter = transform.position + transform.forward * heightOffset + transform.up * upOffset;
+        Vector3 boxCenter = transform.position + transform.forward * heightOffset + transform.up* upOffset;
 
         Gizmos.color = Color.green;
 

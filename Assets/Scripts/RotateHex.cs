@@ -14,7 +14,7 @@ public class RotateHex : MonoBehaviour, IInteractable
         if (hexController.canRotate)
         {
 
-            StartCoroutine(RotateOverTime(45f, 1.5f));
+            StartCoroutine(RotateOverTime(60f, 1.5f));
             if (chainedHex != null)
             {
                 if (rotateFromOutside == false) {
@@ -64,7 +64,7 @@ public class RotateHex : MonoBehaviour, IInteractable
     }
     public bool CheckRotation() {
         float angle = Quaternion.Angle(transform.rotation, Quaternion.Euler(0f, 0f, finalRotation));
-        //Debug.Log(angle);
+        Debug.Log(angle <0.1f);
         return angle < 0.1f;
     }
 }

@@ -9,7 +9,7 @@ public class TimeoutState : BaseGameState
     {
         _state = state;
         _state.StartCoroutine(TimeoutRoutine());
-        _state.playerMovement.canInput = false;
+        //_state.playerMovement.canInput = false;
     }
 
     private IEnumerator TimeoutRoutine()
@@ -19,13 +19,13 @@ public class TimeoutState : BaseGameState
         yield return new WaitForSeconds(0.5f);
 
         _state.cameraController.ResetPriority();
-        _state.playerMovement.ResetPos();
+        _state.playerStateMachine.canMove = false;
 
         yield return new WaitForSeconds(0.5f);
 
         yield return _state.StartCoroutine(_state.fadeManager.FadeOut());
 
-        _state.playerMovement.canInput = true;
+        //_state.playerMovement.canInput = true;
         _state.SwitchState(_state.RoundState);
     }
 

@@ -19,6 +19,7 @@ public class HexCotroller : MonoBehaviour
             
         }
         batteryContainer.powered = true;
+        batteryContainer.ChangeColor();
         batteryContainer.Interact();
     }
 

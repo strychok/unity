@@ -20,6 +20,10 @@ public class PlayerWalkingState : PlayerBaseState
         if (!_ctx.IsMovementPressed) {
             SwitchState(_fact.Idle());
         }
+        if (!_ctx.canMove)
+        {
+            SwitchState(_fact.Respawn());
+        }
     }
     public override void InititalizeSubState() { }
     void handleRotation()

@@ -6,15 +6,17 @@ public class StateManager : MonoBehaviour
     [SerializeField] public Timer timer;
     [SerializeField] public FadeManager fadeManager;
     [SerializeField] public CameraController cameraController;
+    [SerializeField] public PLayerStateMAchine playerStateMachine;
     
+    public RespawnState respawnState =  new RespawnState();
     public RoundState RoundState = new RoundState();
     public TimeoutState TimeoutState = new TimeoutState();
 
-    [SerializeField] public PlayerMovement playerMovement;
+    //[SerializeField] public PlayerMovement playerMovement;
 
     void Start()
     {
-        currentState = RoundState;
+        currentState = respawnState;
         currentState.EnterState(this);
     }
     public void SwitchState(BaseGameState state) { 

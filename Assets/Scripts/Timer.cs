@@ -13,6 +13,7 @@ public class Timer : MonoBehaviour
 
     public void StartTimer(float time)
     {
+        StopTimer();
         remainingTime = time;
         running = true;
     }
@@ -26,24 +27,19 @@ public class Timer : MonoBehaviour
     {
         if (!running) { return; }
 
-        if (remainingTime > 0)
-        {
-            remainingTime -= Time.deltaTime;
-            int minutes = Mathf.FloorToInt(remainingTime / 60);
-            int seconds = Mathf.FloorToInt(remainingTime % 60);
-            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        }
-        else
+        remainingTime -= Time.deltaTime;
+
+        if (remainingTime <= 0)
         {
             remainingTime = 0;
             running = false;
-
             OnTimerFinished?.Invoke();
             timerText.text = "";
+            //return;
         }
 
-        //int minutes = Mathf.FloorToInt(remainingTime / 60);
-        //int seconds = Mathf.FloorToInt(remainingTime % 60);
-        //timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        int minutes = Mathf.FloorToInt(remainingTime / 60);
+        int seconds = Mathf.FloorToInt(remainingTime % 60);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

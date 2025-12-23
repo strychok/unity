@@ -12,6 +12,9 @@ public class PlayerRespawnState : PlayerBaseState
         _ctx.canMove = true;
     }
     public override void EnterState() {
+        _ctx.transform.position = new Vector3(-2, .17f, 0);
+        _ctx.transform.rotation = Quaternion.identity;
+        _ctx.Drop();
         _ctx.canMove = false;
         Debug.Log("Resp");
         HandleRespawn();

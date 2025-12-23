@@ -1,15 +1,16 @@
 using UnityEngine;
 
-public class RespawnState : MonoBehaviour
+public class RespawnState : BaseGameState
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    StateManager _state;
+    public override void EnterState(StateManager state)
     {
-        
+        Debug.Log("RespawnState");
+        _state = state;
     }
 
     // Update is called once per frame
-    void Update()
+    public override void UpdateState(StateManager state)
     {
         
     }
